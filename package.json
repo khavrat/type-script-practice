@@ -2,6 +2,7 @@
   "name": "type-script-react-task",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://khavrat.github.io/type-script-react-task/",
   "dependencies": {
     "@chakra-ui/react": "^2.8.0",
     "@chakra-ui/theme": "^3.2.0",

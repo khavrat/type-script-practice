@@ -25,7 +25,7 @@ export function Product({ product }: ProductProps) {
   return (
     <>
       <Card maxW="sm">
-        <CardHeader minH="150px">
+        <CardHeader minH="100px">
           <Heading size="sm" textTransform="uppercase">
             {product.title}
           </Heading>
@@ -53,14 +53,13 @@ export function Product({ product }: ProductProps) {
               <Box
                 position="absolute"
                 zIndex={5}
-                p="40px"
-                mt="4"
+                p="20px"
                 bg="white"
                 rounded="md"
                 shadow="md"
                 width="100%"
               >
-                <Divider />
+                <Divider marginBottom={4}/>
                 <Text>{product.description}</Text>
               </Box>
             </>
