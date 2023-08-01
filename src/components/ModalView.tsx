@@ -1,4 +1,3 @@
-import { CreateProduct } from "./CreateProduct";
 import {
   Modal,
   ModalOverlay,
