@@ -19,7 +19,7 @@ interface ProductProps {
   product: IProduct;
 }
 
-export function Product({ product }: ProductProps) {
+export function ProductCard({ product }: ProductProps) {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
