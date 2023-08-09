@@ -3,11 +3,14 @@ import { ModalView } from "./components/ModalView";
 import { CreateProduct } from './components/CreateProduct';
 
 function App() {
-
   return (
     <>
       <ListProducts />
-      <ModalView children={ <CreateProduct/>} title="Create a new product" />
+      <ModalView
+        openButtonName="Create product"
+        children={<CreateProduct />}
+        title="Create a new product"
+      />
     </>
   );
 }

@@ -1,26 +1,60 @@
-import { useState } from "react";
 import {
+  Button,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   Input,
+  FormLabel,
 } from "@chakra-ui/react";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 
-export const CreateProduct = () => {
-      const [input, setInput] = useState("");
+interface FormValues {
+  name: string;
+}
 
-      const handleInputChange = (e: any) => setInput(e.target.value);
+export const CreateProduct = ({ onCloseBySubmit }: any) => {
 
-      const isError = input === "";
+  const validateName = (value: string) => {
+    let error;
+    if (!value) {
+      error = "Product name is required";
+    }
+    return error;
+  };
 
-      return (
-        <FormControl isInvalid={isError}>
-          <Input type="text" value={input} onChange={handleInputChange} />
-          {!isError ? (
-            <FormHelperText>Enter a title of your product</FormHelperText>
-          ) : (
-            <FormErrorMessage>Field must not be empty</FormErrorMessage>
-          )}
-        </FormControl>
-      );
-    };
+  const handleSubmit = (
+    values: FormValues,
+    actions: FormikHelpers<FormValues>
+  ) => {
+    actions.setSubmitting(false);
+    if (values) {
+      if (onCloseBySubmit) onCloseBySubmit();
+    }
+    console.log("value :>> ", values);
+  };
+
+  return (
+    <Formik initialValues={{ name: "" }} onSubmit={handleSubmit}>
+      {(props) => (
+        <Form>
+          <Field name="name" validate={validateName}>
+            {({ field, form }: { field: any; form: any }) => (
+              <FormControl isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel>Product name</FormLabel>
+                <Input {...field} placeholder="Enter product name" />
+                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
+              </FormControl>
+            )}
+          </Field>
+          <Button
+            mt={4}
+            colorScheme="teal"
+            isLoading={props.isSubmitting}
+            type="submit"
+          >
+            Create
+          </Button>
+        </Form>
+      )}
+    </Formik>
+  );
+};

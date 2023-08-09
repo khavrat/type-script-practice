@@ -1,40 +1,49 @@
+import React from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
 
-interface ModalProps {
-  children: React.ReactNode,
-  title: string
+export interface ModalProps {
+  openButtonName: string;
+  children: React.ReactNode;
+  title: string;
+  onCloseBySubmit?: () => void;
 }
 
-export const ModalView = ({children, title}:ModalProps) => {
+export const ModalView = ({
+  openButtonName,
+  onCloseBySubmit,
+  children,
+  title,
+}: ModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleClose = () => {
+    onClose();
+    if (onCloseBySubmit) onCloseBySubmit();
+  };
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={onOpen}>{openButtonName}</Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{ title}</ModalHeader>
+          <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>{children}
+          <ModalBody>
+            {React.cloneElement(children as React.ReactElement, {
+              onCloseBySubmit: onClose,
+            })}
           </ModalBody>
-
-          <ModalFooter>
-            <Button  mr={3} onClick={onClose}>
-              Create
-            </Button>
-          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
