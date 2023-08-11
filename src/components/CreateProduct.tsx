@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { ProductContext } from "../App";
+
 import {
   Button,
   FormControl,
@@ -7,9 +10,9 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
+import { IProduct } from "../models";
 import { addProduct } from "../operations/addProduct";
 import { CARD_CAP } from "../constants/imageCaps";
-
 
 const initialProductValues = {
   title: "",
@@ -18,14 +21,9 @@ const initialProductValues = {
   image: CARD_CAP,
 };
 
-interface FormValues {
-  title: string;
-  price: string;
-  description: string;
-  image: string;
-}
-
 export const CreateProduct = ({ onCloseBySubmit }: any) => {
+  const productContext = useContext(ProductContext);
+
   const validateName = (value: any) => {
     let error;
     if (!value) {
@@ -35,16 +33,17 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
   };
 
   const handleSubmit = async (
-    values: FormValues,
-    actions: FormikHelpers<FormValues>
+    values: IProduct,
+    actions: FormikHelpers<IProduct>
   ) => {
-    actions.setSubmitting(false);
     if (values) {
-      if (onCloseBySubmit) onCloseBySubmit();
-
-      const createdProduct = await addProduct(values);
-      console.log("createdProduct :>> ", createdProduct);
+      const result = await addProduct(values);
+      if (result) {
+        productContext?.newProducts.push(result);
+      }
     }
+    if (onCloseBySubmit) onCloseBySubmit();
+    actions.setSubmitting(false);
   };
 
   return (

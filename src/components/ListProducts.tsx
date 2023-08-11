@@ -1,11 +1,16 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import { ProductCard } from "./ProductCard";
 import { useProducts } from "../hooks/products";
 import { Loader } from "./Loader";
 import { ErrorView } from "./ErrorView";
-import { SimpleGrid } from "@chakra-ui/react";
+import { useEffect } from "react";
 
 export const ListProducts = () => {
   const { products, loading, error } = useProducts();
+
+  useEffect(() => {
+    console.log("products in ListProducts :>> ", products);
+  }, [products])
 
   return (
     <>
