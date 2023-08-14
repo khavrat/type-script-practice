@@ -47,8 +47,9 @@ export function ProductCard({ product }: ProductProps) {
             type="button"
             onClick={onToggle}
             size="sm"
-            backgroundColor="brand.100"
-            _hover={{ backgroundColor: "brand.50" }}
+            backgroundColor={isOpen ? "brand.700" : "brand.100"}
+            color={isOpen ? "#ffffff" : "#000000"}
+            _hover={{ backgroundColor: "brand.50", color: "#000000" }}
           >
             {isOpen ? "Hide Description" : "Show Description"}
           </Button>
