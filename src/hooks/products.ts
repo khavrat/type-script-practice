@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { AxiosError } from "axios";
 import { fetchProducts } from "../operations/fetchProducts";
 import { IProduct } from "../models";
-import { ProductContext } from "../App";
+import { ProductContext } from "../contexts/productContext";
 
 export const useProducts = () => {
   const [products, setProducts] = useState<IProduct[]>([]);

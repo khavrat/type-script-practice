@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import nextId from "react-id-generator";
-import { ProductContext } from "../App";
+import { ProductContext } from "../contexts/productContext";
 import {
   Button,
   FormControl,

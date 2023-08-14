@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { SimpleGrid } from "@chakra-ui/react";
-import { ProductContext } from "../App";
+import { ProductContext } from "../contexts/productContext";
 import { ProductCard } from "./ProductCard";
 import { useProducts } from "../hooks/products";
 import { Loader } from "./Loader";

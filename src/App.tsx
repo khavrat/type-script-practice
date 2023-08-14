@@ -1,20 +1,11 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
+import { ProductContext } from "./contexts/productContext";
 
 import { ListProducts } from "./components/ListProducts";
 import { ModalView } from "./components/ModalView";
 import { CreateProduct } from "./components/CreateProduct";
 
 import { IProduct } from "./models";
-
-interface ProductContextType {
-  newProducts: IProduct[];
-  setNewProducts: (products: IProduct[]) => void;
-}
-
-export const ProductContext = createContext<ProductContextType>({
-  newProducts: [],
-  setNewProducts: () => {},
-});
 
 function App() {
   const [newProducts, setNewProducts] = useState<IProduct[]>([]);
