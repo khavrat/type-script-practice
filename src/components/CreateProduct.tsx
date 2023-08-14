@@ -1,7 +1,6 @@
 import { useContext } from "react";
-import  nextId, {setPrefix} from "react-id-generator";
+import nextId from "react-id-generator";
 import { ProductContext } from "../App";
-
 import {
   Button,
   FormControl,
@@ -12,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { IProduct } from "../models";
+import {validateName, validatePrice, validateDiscription} from "../validateSchemas/valiateCreateProduct"
 import { addProduct } from "../operations/addProduct";
 import { CARD_CAP } from "../constants/imageCaps";
 
@@ -22,18 +22,9 @@ const initialProductValues = {
   image: CARD_CAP,
 };
 
-setPrefix("added-product-")
-
 export const CreateProduct = ({ onCloseBySubmit }: any) => {
   const productContext = useContext(ProductContext);
 
-  const validateName = (value: any) => {
-    let error;
-    if (!value) {
-      error = "Product name is required";
-    }
-    return error;
-  };
 
   const handleSubmit = async (
     values: IProduct,
@@ -48,10 +39,6 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
           modifiedResultById,
         ]);
       }
-      console.log(
-        "productContext.newProducts in handleSubmit",
-        productContext.newProducts
-      );
     }
     if (onCloseBySubmit) onCloseBySubmit();
     actions.setSubmitting(false);
@@ -60,7 +47,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
   return (
     <Formik initialValues={initialProductValues} onSubmit={handleSubmit}>
       {(props) => (
-        <Form style={{paddingBottom: "15px"}}>
+        <Form style={{ paddingBottom: "15px" }}>
           <Field name="title" validate={validateName}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
@@ -72,7 +59,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
               </FormControl>
             )}
           </Field>
-          <Field name="price" validate={validateName}>
+          <Field name="price" validate={validatePrice}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
                 marginTop="15px"
@@ -85,7 +72,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
               </FormControl>
             )}
           </Field>
-          <Field name="description" validate={validateName}>
+          <Field name="description" validate={validateDiscription}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
                 marginTop="15px"

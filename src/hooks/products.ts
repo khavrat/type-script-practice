@@ -9,10 +9,6 @@ export const useProducts = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const product = useContext(ProductContext);
-  console.log(
-    "productContext.newProducts in useProducts:>> ",
-    product.newProducts
-  );
 
   useEffect(() => {
     fetchData();

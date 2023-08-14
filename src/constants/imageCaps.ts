@@ -1,2 +1,2 @@
 export const CARD_CAP =
-  "https://images.pexels.com/photos/1438404/pexels-photo-1438404.jpeg?auto=compress&cs=tinysrgb&w=600";
+  "https://cdn.pixabay.com/photo/2017/09/05/15/40/locomotive-2718153_1280.png";
