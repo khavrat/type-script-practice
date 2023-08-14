@@ -1,16 +1,30 @@
-import { useEffect, useState, useContext, useCallback } from "react";
+import { useEffect, useState, useContext } from "react";
 import { AxiosError } from "axios";
 import { fetchProducts } from "../operations/fetchProducts";
 import { IProduct } from "../models";
 import { ProductContext } from "../App";
 
-
 export const useProducts = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { newProducts } = useContext(ProductContext);
-console.log('newProducts in context:>> ', newProducts);
+  const product = useContext(ProductContext);
+  console.log(
+    "productContext.newProducts in useProducts:>> ",
+    product.newProducts
+  );
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const refreshProductList = () => {
+    const latestProduct = product.newProducts.slice(-1)[0];
+    if (latestProduct) {
+      setProducts((prev) => [...prev, latestProduct]);
+    }
+  };
+
   const fetchData = async () => {
     try {
       setError("");
@@ -27,22 +41,7 @@ console.log('newProducts in context:>> ', newProducts);
       setError(error);
       setLoading(false);
     }
-  }
- 
+  };
 
-  const refreshProductList = useCallback(() => {
-    setProducts(prev => [...prev, ...newProducts])
-        console.log("newProducts in refreshProductList", ...newProducts);
-  }, [newProducts])
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    refreshProductList();
-  }, [refreshProductList]);
-
-
-  return { products, loading, error };
+  return { products, loading, error, refreshProductList };
 };

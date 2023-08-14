@@ -32,7 +32,15 @@ export const ModalView = ({
 
   return (
     <>
-      <Button onClick={onOpen}>{openButtonName}</Button>
+      <Button
+        onClick={onOpen}
+        margin="20px"
+        backgroundColor="brand.800"
+        _hover={{ backgroundColor: "brand.600" }}
+        color="#ffffff"
+      >
+        {openButtonName}
+      </Button>
 
       <Modal isOpen={isOpen} onClose={handleClose}>
         <ModalOverlay />

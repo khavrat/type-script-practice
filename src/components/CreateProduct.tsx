@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import  nextId, {setPrefix} from "react-id-generator";
 import { ProductContext } from "../App";
 
 import {
@@ -21,6 +22,8 @@ const initialProductValues = {
   image: CARD_CAP,
 };
 
+setPrefix("added-product-")
+
 export const CreateProduct = ({ onCloseBySubmit }: any) => {
   const productContext = useContext(ProductContext);
 
@@ -39,8 +42,16 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
     if (values) {
       const result = await addProduct(values);
       if (result) {
-        productContext?.newProducts.push(result);
+        const modifiedResultById = { ...result, id: nextId() };
+        productContext.setNewProducts([
+          ...productContext.newProducts,
+          modifiedResultById,
+        ]);
       }
+      console.log(
+        "productContext.newProducts in handleSubmit",
+        productContext.newProducts
+      );
     }
     if (onCloseBySubmit) onCloseBySubmit();
     actions.setSubmitting(false);
@@ -49,7 +60,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
   return (
     <Formik initialValues={initialProductValues} onSubmit={handleSubmit}>
       {(props) => (
-        <Form>
+        <Form style={{paddingBottom: "15px"}}>
           <Field name="title" validate={validateName}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
@@ -64,6 +75,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
           <Field name="price" validate={validateName}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
+                marginTop="15px"
                 isInvalid={form.submitCount > 0 && form.errors[field.name]}
               >
                 <FormLabel>Price</FormLabel>
@@ -76,6 +88,7 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
           <Field name="description" validate={validateName}>
             {({ field, form }: { field: any; form: any }) => (
               <FormControl
+                marginTop="15px"
                 isInvalid={form.submitCount > 0 && form.errors[field.name]}
               >
                 <FormLabel>Description</FormLabel>
@@ -88,7 +101,9 @@ export const CreateProduct = ({ onCloseBySubmit }: any) => {
 
           <Button
             mt={4}
-            colorScheme="teal"
+            backgroundColor="brand.800"
+            _hover={{ backgroundColor: "brand.600" }}
+            color="#ffffff"
             isLoading={props.isSubmitting}
             type="submit"
           >

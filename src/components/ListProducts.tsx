@@ -1,16 +1,20 @@
+import { useEffect, useContext } from "react";
 import { SimpleGrid } from "@chakra-ui/react";
+import { ProductContext } from "../App";
 import { ProductCard } from "./ProductCard";
 import { useProducts } from "../hooks/products";
 import { Loader } from "./Loader";
 import { ErrorView } from "./ErrorView";
-import { useEffect } from "react";
 
 export const ListProducts = () => {
-  const { products, loading, error } = useProducts();
+  const { products, loading, error, refreshProductList } =
+    useProducts();
+  const product = useContext(ProductContext);
 
   useEffect(() => {
-    console.log("products in ListProducts :>> ", products);
-  }, [products])
+    if (product.newProducts.length !== 0) refreshProductList();
+    // eslint-disable-next-line 
+  }, [product.newProducts.length]);
 
   return (
     <>

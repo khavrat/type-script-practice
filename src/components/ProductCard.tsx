@@ -43,9 +43,18 @@ export function ProductCard({ product }: ProductProps) {
           </Center>
         </CardBody>
         <CardFooter>
-          <Button type="button" onClick={onToggle}>
+          <Button
+            type="button"
+            onClick={onToggle}
+            size="sm"
+            backgroundColor="brand.100"
+            _hover={{ backgroundColor: "brand.50" }}
+          >
             {isOpen ? "Hide Description" : "Show Description"}
           </Button>
+          <Center marginLeft="auto">
+            <Box>{product.price}$</Box>
+          </Center>
         </CardFooter>
         <Collapse in={isOpen} animateOpacity>
           {isOpen && (
@@ -59,7 +68,7 @@ export function ProductCard({ product }: ProductProps) {
                 shadow="md"
                 width="100%"
               >
-                <Divider marginBottom={4}/>
+                <Divider marginBottom={4} />
                 <Text>{product.description}</Text>
               </Box>
             </>

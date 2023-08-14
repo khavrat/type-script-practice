@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
 import { ListProducts } from "./components/ListProducts";
 import { ModalView } from "./components/ModalView";
@@ -8,18 +8,22 @@ import { IProduct } from "./models";
 
 interface ProductContextType {
   newProducts: IProduct[];
+  setNewProducts: (products: IProduct[]) => void;
 }
 
-export const ProductContext = createContext<ProductContextType>({ newProducts:[]});
+export const ProductContext = createContext<ProductContextType>({
+  newProducts: [],
+  setNewProducts: () => {},
+});
 
 function App() {
-  const newProducts: IProduct[] = [];
+  const [newProducts, setNewProducts] = useState<IProduct[]>([]);
 
   return (
-    <ProductContext.Provider value={{ newProducts }}>
+    <ProductContext.Provider value={{ newProducts, setNewProducts }}>
       <ListProducts />
       <ModalView
-        openButtonName="Create product"
+        openButtonName="Create your product"
         children={<CreateProduct />}
         title="Create a new product"
       />
