@@ -1,9 +1,10 @@
 import axios from "axios";
 import { IProduct } from "../models";
+import {BASE_URL} from "../constants/baseURL"
 
 export async function fetchProducts() {
   const response = await axios.get<IProduct[]>(
-    "https://fakestoreapi.com/products"
+    `${BASE_URL}/products`
   );
   return response.data;
 }
