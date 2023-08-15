@@ -9,13 +9,13 @@ Create possibility to add the product  with name, price and description by filli
 
 ## Technologies Used:
 
-    - **Chakra-ui**
-    - **Emotion**
-    - **Types**
-    - **Axios**
-    - **Formik**
-    - **React**
-    - **Typescript**
+    - Chakra-ui
+    - Emotion
+    - Types
+    - Axios
+    - Formik
+    - React
+    - Typescript
 
 #### [Live page](https://khavrat.github.io/type-script-react-task/)
 
